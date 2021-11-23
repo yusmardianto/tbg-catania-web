@@ -10,7 +10,7 @@ const BlogDetails = () => {
         <>
             <Navbar />
 
-            <PageBanner pageTitle="Superior Room" /> 
+            <PageBanner pageTitle="Double Room" /> 
 
             <SuperiorContent />
 

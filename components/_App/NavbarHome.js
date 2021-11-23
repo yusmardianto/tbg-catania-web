@@ -59,10 +59,10 @@ const NavbarStyleTwo = () => {
                                     </Link>
                                 </li>
 
-                                <li className="nav-item">
-                                    <Link href="/#">
+                                {/* <li className="nav-item">
+                                    <Link href="/Accomodation/Superior">
                                         <a onClick={toggleNavbar} className="nav-link">
-                                            Accomodation <Icon.ChevronDown />
+                                            Accomodation
                                         </a>
                                     </Link> 
 
@@ -85,15 +85,15 @@ const NavbarStyleTwo = () => {
                                             </Link>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> */}
 
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <Link href="/fasilitas">
                                         <a onClick={toggleNavbar} className="nav-link">
                                             Facilities
                                         </a>
                                     </Link>
-                                </li>
+                                </li> */}
 
                                 <li className="nav-item">
                                     <Link href="/gallery" activeClassName="active">
@@ -104,7 +104,7 @@ const NavbarStyleTwo = () => {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link href="/#">
+                                    <Link href="/LatestNews">
                                         <a onClick={toggleNavbar} className="nav-link">
                                             Blog
                                         </a>

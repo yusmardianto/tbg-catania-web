@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import * as Icon from 'react-feather';
 
 const MainBanner = () => {
 	return (
@@ -11,7 +12,7 @@ const MainBanner = () => {
 							<div className="col-lg-5">
 								<div className="hero-content">
 									<h1 style={{ color: 'white' }}>Catania Hotel & Resort</h1>
-									<p style={{ color: 'white' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+									<p style={{ color: 'white' }}>Catania Bangau is home to 5 guestrooms. All are tastefully furnished, and many even provide such comforts as towels, closet, internet access – wireless (complimentary), air conditioning, desk. The property's host of recreational offerings ensures you have plenty to do during your stay. Enjoy a great location and services to match at Catania Bangau.</p>
 
 									<Link href="/contact">
 										<a className="btn btn-primary">Get Started</a>
@@ -20,27 +21,20 @@ const MainBanner = () => {
 							</div>
 
 							<div className="col-lg-5 offset-lg-1">
-								<div className="pricing-table">
-									<div className="pricing-header">
-										<h3>Superior Room</h3>
-									</div>
+								<div className="agency-services-box">
+									<img src="/images/agency-image/agency-services-img1.jpg" alt="image" />
 
-									<div className="price">
-										<span><sup>Rp.</sup>200.000,- <span>/Night</span></span>
-									</div>
+									<div className="content">
+										<h3>
+											<Link href="/service-details">
+												<a>Double Room<br/>Rp.180.000</a>
+											</Link>
+										</h3>
 
-									<div className="pricing-features">
-										<ul>
-											<li className="active">5 GB Bandwidth</li>
-											<li className="active">Highest Speed</li>
-											<li className="active">1 GB Storage</li>
-											<li className="active">Unlimited Website</li>
-										</ul>
-									</div>
-
-									<div className="pricing-footer">
-										<Link href="#">
-											<a className="btn btn-primary">Book Now</a>
+										<Link href="/service-details">
+											<a className="read-more-btn">
+												Booking Now <Icon.PlusCircle />
+											</a>
 										</Link>
 									</div>
 								</div>
