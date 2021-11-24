@@ -26,12 +26,12 @@ const MainBanner = () => {
 
 									<div className="content">
 										<h3>
-											<Link href="/service-details">
+											<Link href="/checkout">
 												<a>Double Room<br/>Rp.180.000</a>
 											</Link>
 										</h3>
 
-										<Link href="/service-details">
+										<Link href="/checkout">
 											<a className="read-more-btn">
 												Booking Now <Icon.PlusCircle />
 											</a>
