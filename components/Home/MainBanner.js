@@ -2,7 +2,33 @@ import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
 
-const MainBanner = () => {
+import NumberFormat from 'react-number-format';
+
+const MainBanner = function ({ backend, kamar, ...props }) {
+	const kamarContent = kamar.map((data) => {
+		return (
+			<div className="col-lg-5 offset-lg-1">
+				<div className="agency-services-box">
+					<img src={`${backend}${data.imgKamar["url"]}`} alt="image" />
+
+					<div className="content">
+						<h3>
+							<Link href={"/checkout?s=" + data.id}>
+								<a>{data.namaKamar}<br /><NumberFormat value={data.hargaKamar} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></a>
+							</Link>
+						</h3>
+
+						<Link href={"/checkout?s=" + data.id}>
+							<a className="read-more-btn">
+								Booking Now <Icon.PlusCircle />
+							</a>
+						</Link>
+					</div>
+				</div>
+			</div>
+		)
+	})
+
 	return (
 		<div className="main-banner" style={{ marginTop: "-50px" }}>
 			<div className="d-table">
@@ -20,25 +46,7 @@ const MainBanner = () => {
 								</div>
 							</div>
 
-							<div className="col-lg-5 offset-lg-1">
-								<div className="agency-services-box">
-									<img src="/images/agency-image/agency-services-img1.jpg" alt="image" />
-
-									<div className="content">
-										<h3>
-											<Link href="/checkout">
-												<a>Double Room<br/>Rp.180.000</a>
-											</Link>
-										</h3>
-
-										<Link href="/checkout">
-											<a className="read-more-btn">
-												Booking Now <Icon.PlusCircle />
-											</a>
-										</Link>
-									</div>
-								</div>
-							</div>
+							{kamarContent}
 						</div>
 					</div>
 				</div>
