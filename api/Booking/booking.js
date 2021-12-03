@@ -1,8 +1,8 @@
 import apollo from "../../lib/apollo.js";
 
 async function AddBooking(content, token = "") {
-    var res = await apollo.mutation(
-      `
+  var res = await apollo.mutation(
+    `
       mutation($input: BookingInput!) {
         createBooking(input: { data: $input }) {
           booking {
@@ -12,13 +12,40 @@ async function AddBooking(content, token = "") {
       }
     `,
     token,
-      {
-        input: content,
+    {
+      input: content,
+    }
+  );
+  return res;
+}
+
+async function getReview(token = "") {
+  var res = await apollo.query(
+    `
+    query {
+      bookings{
+        id
+        namaPemesan
+        emailPemesan
+        teleponPemesan
+        pemesan
+        checkIn
+        checkOut
+        jumlahPengunjung
+        namaKamar
+        requestKamar
+        hargaKamar
+        ppnKamar
+        hargaTotal
+        catatan
       }
-    );
-    return res;
-  }
+    }`,
+    token
+  );
+  return res;
+}
 
 module.exports = {
-    AddBooking: AddBooking,
+  AddBooking: AddBooking,
+  getReview: getReview,
 };

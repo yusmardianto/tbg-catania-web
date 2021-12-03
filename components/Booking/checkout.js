@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as Icon from 'react-feather';
+import { useRouter } from 'next/router'
 
 import NumberFormat from 'react-number-format';
 
@@ -34,6 +35,17 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
         const yyyy = today.getFullYear();
         return yyyy + "-" + mm + "-" + dd;
     };
+
+    const [TglCheckIn, setCheckIn] = useState('');
+    const [TglCheckOut, setCheckOut] = useState('');
+
+    const date = (new Date(TglCheckIn)).getTime();
+    const today = (new Date(TglCheckOut)).getTime();
+    const msDay = 24 * 60 * 60 * 1000; // milliseconds per day
+
+    const days = Math.floor((today - date) / msDay);
+
+    const router = useRouter();
 
     const CheckoutKamar = checkoutItem.map((data) => {
         return (
@@ -77,7 +89,16 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                             </td>
 
                             <td className="product-total">
-                                <span className="subtotal-amount"><NumberFormat value={data.hargaKamar} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></span>
+                                <span className="subtotal-amount"><NumberFormat value={data.hargaKamar * days} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="product-name">
+                                <span href="#">Total Hari</span>
+                            </td>
+
+                            <td className="product-total">
+                                <span className="subtotal-amount">{days} Hari</span>
                             </td>
                         </tr>
                         <tr>
@@ -86,7 +107,16 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                             </td>
 
                             <td className="product-total">
-                                <span type="disable" className="subtotal-amount"><NumberFormat value={data.hargaKamar + data.hargaKamar * 0.1} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></span>
+                                <span type="disable" className="subtotal-amount"><NumberFormat value={data.hargaKamar * days * 0.1} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="product-name">
+                                <span href="#">Total</span>
+                            </td>
+
+                            <td className="product-total">
+                                <span type="disable" className="subtotal-amount"><NumberFormat value={data.hargaKamar * days + data.hargaKamar * days * 0.1} displayType={'text'} thousandSeparator={true} prefix={'Rp.'} /></span>
                             </td>
                         </tr>
                     </tbody>
@@ -251,6 +281,7 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                                                     type="date"
                                                     min={disablePastDate()}
                                                     className="form-control"
+                                                    onChange={e => setCheckIn(e.target.value)}
                                                     onInput={(e) => {
                                                         setFormValue({
                                                             ...formValue,
@@ -270,6 +301,7 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                                                     type="date"
                                                     min={disablePastDate()}
                                                     className="form-control"
+                                                    onChange={e => setCheckOut(e.target.value)}
                                                     onInput={(e) => {
                                                         setFormValue({
                                                             ...formValue,
