@@ -19,30 +19,61 @@ async function AddBooking(content, token = "") {
   return res;
 }
 
-async function getReview(token = "") {
-  var res = await apollo.query(
-    `
-    query {
-      bookings{
-        id
-        namaPemesan
-        emailPemesan
-        teleponPemesan
-        pemesan
-        checkIn
-        checkOut
-        jumlahPengunjung
-        namaKamar
-        requestKamar
-        hargaKamar
-        ppnKamar
-        hargaTotal
-        catatan
+// async function getReview(token = "") {
+//   var res = await apollo.query(
+//     `
+//     query {
+//       bookings{
+//         id
+//         namaPemesan
+//         emailPemesan
+//         teleponPemesan
+//         pemesan
+//         checkIn
+//         checkOut
+//         jumlahPengunjung
+//         namaKamar
+//         requestKamar
+//         hargaKamar
+//         ppnKamar
+//         hargaTotal
+//         catatan
+//       }
+//     }`,
+//     token
+//   );
+//   return res;
+// }
+
+async function getReview(transactionID, token="") {
+	var res = await apollo.query(
+        `
+            query($input: ID!) {
+              bookings(where:{transactionID:$input}) {
+                id
+                transactionID
+                namaPemesan
+                emailPemesan
+                teleponPemesan
+                pemesan
+                checkIn
+                checkOut
+                jumlahPengunjung
+                namaKamar
+                requestKamar
+                hargaKamar
+                ppnKamar
+                hargaTotal
+                catatan
+                }
+            }
+      `,
+      token, 
+      {	
+        "input": transactionID
       }
-    }`,
-    token
-  );
-  return res;
+	);
+	return res;
 }
 
 module.exports = {

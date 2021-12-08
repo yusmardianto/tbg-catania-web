@@ -5,21 +5,20 @@ import NumberFormat from 'react-number-format';
 
 const Checkout = function ({ transactionToken, backend, review, ...props }) {
 
-    console.log(transactionToken);
-
-    const Checkin = review[0].checkIn;
-    const [Checkinyear, Checkinmonth, Checkinday] = Checkin.split('-')
-
-    const Checkout = review[0].checkOut;
-    const [Checkoutnyear, Checkoutnmonth, Checkoutnday] = Checkout.split('-')
-
-    const date = (new Date(review[0].checkIn)).getTime();
-    const today = (new Date(review[0].checkOut)).getTime();
-    const msDay = 24 * 60 * 60 * 1000; // milliseconds per day
-
-    const days = Math.floor((today - date) / msDay);
-
     const ReviewContens = review.map((data) => {
+
+        const Checkin = data.checkIn;
+        const [Checkinyear, Checkinmonth, Checkinday] = Checkin.split('-')
+
+        const Checkout = data.checkOut;
+        const [Checkoutnyear, Checkoutnmonth, Checkoutnday] = Checkout.split('-')
+
+        const date = (new Date(data.checkIn)).getTime();
+        const today = (new Date(data.checkOut)).getTime();
+        const msDay = 24 * 60 * 60 * 1000; // milliseconds per day
+
+        const days = Math.floor((today - date) / msDay);
+
         return (
             <div className="row">
                 <div className="col-lg-12 col-md-6">
