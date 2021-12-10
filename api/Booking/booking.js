@@ -76,7 +76,39 @@ async function getReview(transactionID, token="") {
 	return res;
 }
 
+async function getReviewPayment(transactionID, token="") {
+	var res = await apollo.query(
+        `
+            query($input: ID!) {
+              booking(transactionID:$input) {
+                id
+                transactionID
+                namaPemesan
+                emailPemesan
+                teleponPemesan
+                pemesan
+                checkIn
+                checkOut
+                jumlahPengunjung
+                namaKamar
+                requestKamar
+                hargaKamar
+                ppnKamar
+                hargaTotal
+                catatan
+                }
+            }
+      `,
+      token, 
+      {	
+        "input": transactionID
+      }
+	);
+	return res;
+}
+
 module.exports = {
+  getReviewPayment: getReviewPayment,
   AddBooking: AddBooking,
   getReview: getReview,
 };

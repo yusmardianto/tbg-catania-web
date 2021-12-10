@@ -7,24 +7,33 @@ import NumberFormat from 'react-number-format';
 //sweet alert
 import swal from 'sweetalert';
 
+function CreateID(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
+}
+
+const UUID = CreateID(10);
+// console.log("hasil : ", UUID);
+
 const Checkout = function ({ backend, checkoutItem, ...props }) {
 
     // const [HargaFasilitas, setHargaFasilitas] = useState('');
     // const [NamaFasilitas, setNamaFasilitas] = useState('');
 
-    function CreateID(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() *
-                charactersLength));
-        }
-        return result;
-    }
+    var [TglCheckIn, setCheckIn] = useState('');
+    var [TglCheckOut, setCheckOut] = useState('');
 
-    const UUID = CreateID(10);
-    console.log("hasil : ", UUID);
+    var date = (new Date(TglCheckIn)).getTime();
+    var today = (new Date(TglCheckOut)).getTime();
+    const msDay = 24 * 60 * 60 * 1000;
+
+    var days = Math.floor((today - date) / msDay);
 
     const [formValue, setFormValue] = React.useState({
         transactionID: UUID,
@@ -40,7 +49,7 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
         hargaKamar: "",
         namaKamar: "",
         ppnKamar: 0.1,
-        hargaTotal: checkoutItem[0].hargaKamar + checkoutItem[0].hargaKamar * 0.1,
+        hargaTotal: "",
     });
 
     const disablePastDate = () => {
@@ -50,15 +59,6 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
         const yyyy = today.getFullYear();
         return yyyy + "-" + mm + "-" + dd;
     };
-
-    const [TglCheckIn, setCheckIn] = useState('');
-    const [TglCheckOut, setCheckOut] = useState('');
-
-    const date = (new Date(TglCheckIn)).getTime();
-    const today = (new Date(TglCheckOut)).getTime();
-    const msDay = 24 * 60 * 60 * 1000;
-
-    const days = Math.floor((today - date) / msDay);
 
     const Router = useRouter();
 
@@ -85,6 +85,7 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                                 ...formValue,
                                 namaKamar: checkoutItem[0].namaKamar,
                                 hargaKamar: checkoutItem[0].hargaKamar,
+                                hargaTotal: checkoutItem[0].hargaKamar * days + checkoutItem[0].hargaKamar * days * 0.1,
                             }
                             setFormValue(newformValue)
                             // console.log(JSON.stringify(newformValue));
@@ -306,7 +307,7 @@ const Checkout = function ({ backend, checkoutItem, ...props }) {
                                                 <div className="form-check">
                                                     <input
                                                         name="requestKamar"
-                                                        type="checkbox"
+                                                        type="radio"
                                                         className="form-check-input"
                                                         value={option.namaFasilitas}
                                                         onInput={(e) => {

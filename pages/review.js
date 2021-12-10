@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
     }
 
     // midtrans
-    var parameters = await GetReviewItem.getReview();
+    var parameters = await GetReviewItem.getReview(query.s || 0);
     console.log("parameters", parameters);
     var transactionToken = [];
     if (parameters["STATUS"] === 1) {
@@ -42,16 +42,15 @@ export async function getServerSideProps(context) {
         });
         let parameter = {
             "transaction_details": {
-                // "order_id": parameters["DATA"]["bookings"][0]["NamaPemesan"],
+                "order_id": parameters["DATA"]["bookings"][0]["transactionID"],
                 "gross_amount": parameters["DATA"]["bookings"][0]["hargaTotal"],
-                "order_id":"Trx-Ord-2545343543",
-                // "gross_amount":33750000,
             }, "credit_card": {
                 "secure": true
             },
             "customer_details": {
                 "first_name": parameters["DATA"]["bookings"][0]["namaPemesan"],
                 "phone": parameters["DATA"]["bookings"][0]["teleponPemesan"],
+                "email": parameters["DATA"]["bookings"][0]["emailPemesan"],
                 // "first_name":"Yusmar",
                 // "phone":"087797315685",
                 "billing_address":
